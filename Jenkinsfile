@@ -19,14 +19,14 @@ pipeline {
 
         stage('Test'){
             steps {
-                sh 'vendor/bin/phpunit phpunit.xml.dist || exit 0'
+                sh 'vendor/bin/phpunit -c phpunit.xml.dist || exit 0'
             }
         }
 
         stage('Checkstyle') {
             steps {
-                sh 'vendor/bin/phpcs --report=checkstyle --report-file=`pwd`/build/logs/checkstyle.xml --standard=PSR2 --extensions=php --ignore=autoload.php --ignore=vendor/ . || exit 0'
-                checkstyle pattern: 'build/logs/checkstyle.xml'
+                sh 'vendor/bin/phpcs --generator=HTML > build/logs/checkstyle.html || exit 0'
+                /* checkstyle pattern: 'build/logs/checkstyle.xml' */
             }
         }
 
