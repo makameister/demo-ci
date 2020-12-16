@@ -5,9 +5,6 @@ pipeline {
         stage('Prepare') {
             steps {
                 sh 'composer update'
-                sh 'rm -rf .build'
-                sh 'rm -rf .reports'
-                sh 'rm -rf api'
                 sh 'rm -rf build/coverage'
                 sh 'rm -rf build/logs'
                 sh 'rm -rf build/pdepend'
@@ -29,6 +26,12 @@ pipeline {
         stage('Checkstyle') {
             steps {
                 sh 'vendor/bin/phpcs --report=checkstyle --report-file=build/logs/checkstyle.xml --standard=PSR2 --extensions=php src/ test/ || exit 0'
+            }
+        }
+
+        stage('Static analyze') {
+            steps {
+                sh 'vendor/bin/phpstan analyse src/ --level 8 --error-format=xml > build/logs/phpstan-output.xml || exit 0'
             }
         }
 
@@ -55,10 +58,21 @@ pipeline {
             }
         }
 
+        stage('Mess detection') {
+            steps {
+                sh 'vendor/bin/phpmd . xml build/phpmd.xml --reportfile build/logs/pmd.xml --exclude vendor/ || exit 0'
+                /* pmd canRunOnFailed: true, pattern: 'build/logs/pmd.xml' */
+            }
+        }
+
         stage('Software metrics') {
             steps {
                 sh 'vendor/bin/pdepend --jdepend-xml=build/logs/jdepend.xml --jdepend-chart=build/pdepend/dependencies.svg --overview-pyramid=build/pdepend/overview-pyramid.svg --ignore=vendor .'
             }
         }
+
+        /* stage('Generate documentation') { steps { sh 'vendor/bin/phpdox -f build/phpdox.xml' } } */
+
+        stage('Clean install') { sh echo "cleaned" }
     }
 }
