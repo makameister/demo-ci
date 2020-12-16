@@ -25,8 +25,7 @@ pipeline {
 
         stage('Checkstyle') {
             steps {
-                sh 'vendor/bin/phpcs --generator=HTML > build/logs/checkstyle.html || exit 0'
-                /* checkstyle pattern: 'build/logs/checkstyle.xml' */
+                sh 'vendor/bin/phpcs -report=checkstyle --report-file=build/logs/checkstyle.xml --standard=PSR2 *.php || exit 0'
             }
         }
 
