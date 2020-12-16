@@ -10,7 +10,7 @@ pipeline {
                 sh 'rm -rf build/logs'
                 sh 'rm -rf build/pdepend'
                 sh 'rm -rf build/phpdox'
-                sh 'if [ ! -d "build/" ] then mkdir build/ fi'
+                sh 'if [ ! -d "build/" ]; then mkdir build/ fi'
                 sh 'mkdir build/api'
                 sh 'mkdir build/coverage'
                 sh 'mkdir build/logs'
