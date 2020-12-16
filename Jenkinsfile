@@ -73,6 +73,6 @@ pipeline {
 
         /* stage('Generate documentation') { steps { sh 'vendor/bin/phpdox -f build/phpdox.xml' } } */
 
-        stage('Clean install') { sh echo "cleaned" }
+        stage('Clean install') { steps { sh echo "cleaned" } }
     }
 }
