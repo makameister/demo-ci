@@ -5,14 +5,16 @@
 >
     <testsuites>
         <testsuite name="all">
-            <directory>./test/Framework/</directory>
+            <directory suffix="Test.php">./test/Framework/</directory>
         </testsuite>
     </testsuites>
+    <!--
     <filter>
         <whitelist>
-            <directory suffix=".php">./src/Framework</directory>
+            <directory suffix="Test.php">./test/Framework</directory>
         </whitelist>
     </filter>
+    -->
     <logging>
         <!-- Execution logs -->
         <log type="junit" target=".reports/junit-report.xml"/>
