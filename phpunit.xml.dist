@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<phpunit
+        bootstrap="./vendor/autoload.php"
+        colors="true"
+>
+    <testsuites>
+        <testsuite name="all">
+            <directory>./test/Framework/</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist>
+            <directory suffix=".php">./src/Framework</directory>
+        </whitelist>
+    </filter>
+    <logging>
+        <!-- Execution logs -->
+        <log type="junit" target=".reports/junit-report.xml"/>
+        <log type="testdox-html" target=".reports/report.html"/>
+        <log type="testdox-text" target=".reports/report.txt"/>
+        <log type="testdox-xml" target=".reports/report.xml"/>
+        <!-- %Coverage -->
+        <log type="coverage-html" target=".reports/coverage.html" lowUpperBound="35"
+             highLowerBound="70"/>
+        <log type="coverage-clover" target=".reports/coverage.xml"/>
+        <log type="coverage-php" target=".reports/coverage.serialized"/>
+        <log type="coverage-text" target="php://stdout" showUncoveredFiles="false"/>
+    </logging>
+</phpunit>
