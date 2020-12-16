@@ -34,7 +34,7 @@ pipeline {
         stage('Checkstyle') {
             steps {
                 sh 'vendor/bin/phpcs --report=checkstyle --report-file=build/logs/checkstyle.xml --standard=PSR2 --extensions=php src/ || exit 0'
-                step([$class: 'hudson.plugins.checkstyle.CheckStylePublisher', checkstyle: 'build/logs/checkstyle.xml'])
+                recordIssues enabledForFailure: true, aggregatingResults: true, tool: checkStyle(pattern: 'build/logs/checkstyle.xml')
             }
         }
 
