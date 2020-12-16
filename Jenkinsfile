@@ -82,7 +82,7 @@ pipeline {
         stage ('Publish Static Analysis Reports') {
             steps {
                 //These settings are called out separately and not included in the preceding stage as it will create a concurrency issue
-                recordIssues enabledForFailure: true, aggregatingResults: true, tool: publishChecks(pattern: 'build/logs/checkstyle.xml')
+                publishChecks(pattern: 'build/logs/checkstyle.xml')
             }
         }
 
