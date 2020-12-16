@@ -33,14 +33,14 @@ pipeline {
 
         stage('Checkstyle') {
             steps {
-                sh 'vendor/bin/phpcs --report=checkstyle --report-file=build/logs/checkstyle.xml --standard=PSR2 --extensions=php src/ test/ || exit 0'
+                sh 'vendor/bin/phpcs --report=checkstyle --report-file=build/logs/checkstyle.xml --standard=PSR2 --extensions=php src/ || exit 0'
                 checkstyle pattern: 'build/logs/checkstyle.xml'
             }
         }
 
         stage('Static analyze') {
             steps {
-                sh 'vendor/bin/phpstan analyse src/ --level 8 --error-format=junit > build/logs/phpstan-output.xml || exit 0'
+                sh 'vendor/bin/phpstan analyse src/ --level 8 --error-format=checkstyle > build/logs/phpstan-output.xml || exit 0'
             }
         }
 
