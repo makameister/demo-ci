@@ -19,8 +19,7 @@ pipeline {
 
         stage('Test'){
             steps {
-                sh 'vendor/bin/phpunit -c phpunit.xml.dist || exit 0'
-                publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'build/coverage', reportFiles: 'index.html', reportName: 'Coverage Report', reportTitles: ''])
+                sh 'vendor/bin/phpunit phpunit.xml.dist || exit 0'
             }
         }
 
