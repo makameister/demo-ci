@@ -26,7 +26,7 @@ pipeline {
                         keepAll: true,
                         reportDir: 'build/coverage/coverage.html/',
                         reportFiles: 'index.html',
-                        reportName: 'RCov Report'
+                        reportName: 'Code coverage'
                       ])
             }
         }
