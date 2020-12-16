@@ -20,6 +20,7 @@ pipeline {
         stage('Test'){
             steps {
                 sh 'vendor/bin/phpunit -c phpunit.xml.dist || exit 0'
+                publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'build/coverage', reportFiles: 'index.html', reportName: 'Coverage Report', reportTitles: ''])
             }
         }
 
@@ -30,6 +31,7 @@ pipeline {
             }
         }
 
+/*
         stage('SonarQube analysis') {
             steps {
                 script {
@@ -56,5 +58,6 @@ pipeline {
                 sh 'vendor/bin/pdepend --jdepend-xml=build/logs/jdepend.xml --jdepend-chart=build/pdepend/dependencies.svg --overview-pyramid=build/pdepend/overview-pyramid.svg --ignore=vendor .'
             }
         }
+*/
     }
 }
