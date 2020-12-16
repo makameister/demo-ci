@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Prepare') {
             steps {
-                sh 'composer install'
+                sh 'composer update'
                 sh 'rm -rf build/api'
                 sh 'rm -rf build/coverage'
                 sh 'rm -rf build/logs'
