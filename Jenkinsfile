@@ -20,14 +20,14 @@ pipeline {
         stage('Test'){
             steps {
                 sh 'vendor/bin/phpunit -c phpunit.xml.dist || exit 0'
-                 publishHTML target: [
+                 publishHTML(target: [
                             allowMissing: false,
                             alwaysLinkToLastBuild: false,
                             keepAll: true,
                             reportDir: 'build/coverage/coverage.html/',
                             reportFiles: 'index.html',
                             reportName: 'RCov Report'
-                          ]
+                          ])
             }
         }
 
