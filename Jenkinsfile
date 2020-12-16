@@ -23,17 +23,19 @@ pipeline {
             }
         }
 
-        stage('SonarQube analysis') {
-            def scannerHome = tool 'sonar-scanner';
-            withSonarQubeEnv('sonar-scanner') {
-              sh "${scannerHome}/bin/sonar-scanner"
-            }
-        }
-
         stage('Checkstyle') {
             steps {
                 sh 'vendor/bin/phpcs --report=checkstyle --report-file=`pwd`/build/logs/checkstyle.xml --standard=PSR2 --extensions=php --ignore=autoload.php --ignore=vendor/ . || exit 0'
                 checkstyle pattern: 'build/logs/checkstyle.xml'
+            }
+        }
+
+        stage('SonarQube analysis') {
+            steps {
+                def scannerHome = tool 'sonar-scanner';
+                withSonarQubeEnv('sonar-scanner') {
+                  sh "${scannerHome}/bin/sonar-scanner"
+                }
             }
         }
 
