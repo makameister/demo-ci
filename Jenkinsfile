@@ -5,6 +5,9 @@ pipeline {
         stage('Prepare') {
             steps {
                 sh 'composer update'
+                sh 'rm -rf .build'
+                sh 'rm -rf .reports'
+                sh 'rm -rf api'
                 sh 'rm -rf build/coverage'
                 sh 'rm -rf build/logs'
                 sh 'rm -rf build/pdepend'
@@ -47,8 +50,8 @@ pipeline {
 
         stage('Copy paste detection') {
             steps {
-                sh 'vendor/bin/phpcpd --log-pmd build/logs/pmd-cpd.xml --exclude vendor . || exit 0'
-                dry canRunOnFailed: true, pattern: 'build/logs/pmd-cpd.xml'
+                sh 'vendor/bin/phpcpd --log-pmd build/logs/pmd-cpd.xml --exclude vendor .'
+                /* dry canRunOnFailed: true, pattern: 'build/logs/pmd-cpd.xml' */
             }
         }
 
