@@ -34,7 +34,6 @@ pipeline {
         stage('Checkstyle') {
             steps {
                 sh 'vendor/bin/phpcs --report=checkstyle --report-file=build/logs/checkstyle.xml --standard=PSR2 --extensions=php src/ || exit 0'
-                recordIssues enabledForFailure: true, aggregatingResults: true, tool: checkStyle(pattern: 'build/logs/checkstyle.xml')
             }
         }
 
@@ -77,6 +76,13 @@ pipeline {
         stage('Software metrics') {
             steps {
                 sh 'vendor/bin/pdepend --jdepend-xml=build/logs/jdepend.xml --jdepend-chart=build/pdepend/dependencies.svg --overview-pyramid=build/pdepend/overview-pyramid.svg --ignore=vendor .'
+            }
+        }
+
+        stage ('Publish Static Analysis Reports') {
+            steps {
+                //These settings are called out separately and not included in the preceding stage as it will create a concurrency issue
+                recordIssues enabledForFailure: true, aggregatingResults: true, tool: checkStyle(pattern: 'build/logs/checkstyle.xml')
             }
         }
 
