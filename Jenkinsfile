@@ -34,7 +34,7 @@ pipeline {
         stage('Checkstyle') {
             steps {
                 sh 'vendor/bin/phpcs --report=checkstyle --report-file=build/logs/checkstyle.xml --standard=PSR2 --extensions=php src/ || exit 0'
-                checkstyle pattern: 'build/logs/checkstyle.xml'
+                step([$class: 'CheckStylePublisher', pattern: 'build/logs/checkstyle.xml'])
             }
         }
 
