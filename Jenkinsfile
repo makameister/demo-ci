@@ -79,9 +79,9 @@ pipeline {
             }
         }
 
-        stage ('Publish Static Analysis Reports') {
+        stage ('Publish Analysis Reports') {
             steps {
-                step([$class: 'ACIPluginPublisher', name: 'build/logs/checkstyle.xml', shownOnProjectPage: true])
+                step([$class: 'hudson.plugins.checkstyle.CheckStylePublisher', pattern: 'checkstyle-*'])
                 echo "OK!"
             }
         }
