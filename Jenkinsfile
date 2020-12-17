@@ -81,7 +81,7 @@ pipeline {
 
         stage ('Publish Static Analysis Reports') {
             steps {
-                step([$class: 'JUnitResultArchiver', checksName: '', testResults: 'build/logs/checkstyle.xml'])
+                step([$class: 'ACIPluginPublisher', name: 'build/logs/checkstyle.xml', shownOnProjectPage: true])
                 echo "OK!"
             }
         }
