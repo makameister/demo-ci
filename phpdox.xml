@@ -23,8 +23,7 @@
                 </source>
                 <!-- PHPUnit Coverage XML -->
                 <source type="phpunit">
-                    <!-- <coverage path="coverage" /> -->
-                    <file name="coverage/coverage.xml" />
+                    <coverage path="coverage/xml" />
                 </source>
             </enrich>
             <build engine="html" enabled="true" output="html">

@@ -20,9 +20,9 @@
         <log type="testdox-xml" target="build/logs/phpunit.xml"/>
         <!-- %Coverage -->
         <log type="junit" target="build/coverage/coverage-junit.xml"/>
+        <log type="coverage-clover" target="build/coverage/coverage-clover.xml"/>
+        <log type="coverage-xml" target="build/coverage/xml"/>
         <log type="coverage-html" target="build/coverage/html" lowUpperBound="35"
              highLowerBound="70"/>
-        <log type="coverage-xml" target="build/coverage/xml"/>
-        <log type="coverage-clover" target="build/coverage/coverage-clover.xml"/>
     </logging>
 </phpunit>
