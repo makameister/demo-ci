@@ -19,11 +19,12 @@
                 </source>
                 <!-- PHPMessDetector -->
                 <source type="pmd">
-                    <file name="pmd.xml" />
+                    <file name="logs/pmd.xml" />
                 </source>
                 <!-- PHPUnit Coverage XML -->
                 <source type="phpunit">
-                    <coverage path="coverage" />
+                    <!-- <coverage path="coverage" /> -->
+                    <file name="coverage/coverage.xml" />
                 </source>
             </enrich>
             <build engine="html" enabled="true" output="html">

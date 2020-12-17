@@ -5,7 +5,6 @@ pipeline {
         stage('Prepare') {
             steps {
                 sh 'composer update'
-                sh 'rm -rf api'
                 sh 'rm -rf build/coverage'
                 sh 'rm -rf build/logs'
                 sh 'rm -rf build/pdepend'
@@ -79,7 +78,7 @@ pipeline {
                 step([
                     $class: 'CloverPublisher',
                     cloverReportDir: 'build/coverage/',
-                    cloverReportFileName: 'coverage.xml',
+                    cloverReportFileName: 'coverage-clover.xml',
                     healthyTarget: [methodCoverage: 70, conditionalCoverage: 80, statementCoverage: 80],
                     unhealthyTarget: [methodCoverage: 50, conditionalCoverage: 50, statementCoverage: 50],
                     failingTarget: [methodCoverage: 0, conditionalCoverage: 0, statementCoverage: 0]
