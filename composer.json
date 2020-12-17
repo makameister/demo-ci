@@ -29,6 +29,7 @@
         "sebastian/phpcpd": "^6.0",
         "pdepend/pdepend": "^2.8",
         "phpmd/phpmd": "^2.9",
-        "insphpect/staticanalysis": "dev-master"
+        "insphpect/staticanalysis": "dev-master",
+        "phpcheckstyle/phpcheckstyle": "^0.14.8"
     }
 }

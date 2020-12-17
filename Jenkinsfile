@@ -35,7 +35,8 @@ pipeline {
 
         stage('Checkstyle') {
             steps {
-                sh 'vendor/bin/phpcs --report=html --report-file=build/logs/checkstyle.html --standard=PSR2 --extensions=php src/ || exit 0'
+                sh 'vendor/bin/phpcs --report=xml --report-file=build/logs/checkstyle.xml --standard=PSR2 --extensions=php src/ || exit 0'
+                sh 'vendor/bin/phpcheckstyle --src=src --format=html --outdir=build/logs/checkstyle.html || exit 0'
             }
         }
 
@@ -81,6 +82,8 @@ pipeline {
             }
         }
 
+        /* stage('Generate documentation') { steps { sh 'vendor/bin/phpdox -f build/phpdox.xml' } } */
+
         stage ('Publish Analysis Reports') {
             steps {
                 echo "Code coverage clover..."
@@ -92,14 +95,9 @@ pipeline {
                     unhealthyTarget: [methodCoverage: 50, conditionalCoverage: 50, statementCoverage: 50],
                     failingTarget: [methodCoverage: 0, conditionalCoverage: 0, statementCoverage: 0]
                 ])
-                echo "Checkstyle..."
-                step([
-                    publishChecks('build/logs/checkstyle.xml')
-                ])
                 echo "Done..."
             }
         }
 
-        /* stage('Generate documentation') { steps { sh 'vendor/bin/phpdox -f build/phpdox.xml' } } */
     }
 }
