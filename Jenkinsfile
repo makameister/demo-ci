@@ -81,8 +81,18 @@ pipeline {
 
         stage ('Publish Analysis Reports') {
             steps {
-                step([$class: 'hudson.plugins.checkstyle.CheckStylePublisher', pattern: 'checkstyle-*'])
-                echo "OK!"
+                echo "Code coverage clover......"
+                step([
+                    $class: 'CloverPublisher',
+                    cloverReportDir: 'build/coverage/',
+                    cloverReportFileName: 'coverage.xml',
+                    healthyTarget: [methodCoverage: 70, conditionalCoverage: 80, statementCoverage: 80],
+                    unhealthyTarget: [methodCoverage: 50, conditionalCoverage: 50, statementCoverage: 50],
+                    failingTarget: [methodCoverage: 0, conditionalCoverage: 0, statementCoverage: 0]]
+                )
+                echo "Checkstyle"
+                checkstyle canRunOnFailed: true, defaultEncoding: '', healthy: '', pattern: 'build/logs/checkstyle.xml', unHealthy: '' || exit 0
+                echo "DONE......"
             }
         }
 

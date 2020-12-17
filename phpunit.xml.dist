@@ -17,7 +17,6 @@
         <!-- Execution logs -->
         <log type="junit" target="build/logs/junit-report.xml"/>
         <log type="testdox-html" target="build/logs/report.html"/>
-        <log type="testdox-text" target="build/logs/report.txt"/>
         <log type="testdox-xml" target="build/logs/report.xml"/>
         <!-- %Coverage -->
         <log type="coverage-html" target="build/coverage/coverage.html" lowUpperBound="35"
