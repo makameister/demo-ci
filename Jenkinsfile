@@ -81,14 +81,8 @@ pipeline {
 
         stage ('Publish Static Analysis Reports') {
             steps {
-                publishHTML(target: [
-                        allowMissing: false,
-                        alwaysLinkToLastBuild: false,
-                        keepAll: true,
-                        reportDir: 'build/logs/',
-                        reportFiles: 'checkstyle.xml',
-                        reportName: 'Checkstyle'
-                      ])
+                step([$class: 'JUnitResultArchiver', checksName: '', testResults: 'build/logs/checkstyle.xml'])
+                echo "OK!"
             }
         }
 
