@@ -20,6 +20,7 @@ pipeline {
         stage('Test'){
             steps {
                 sh 'vendor/bin/phpunit -c phpunit.xml.dist || exit 0'
+                /*
                 publishHTML(target: [
                         allowMissing: false,
                         alwaysLinkToLastBuild: false,
@@ -28,6 +29,7 @@ pipeline {
                         reportFiles: 'index.html',
                         reportName: 'Code coverage'
                       ])
+              */
             }
         }
 
@@ -91,11 +93,7 @@ pipeline {
                     failingTarget: [methodCoverage: 0, conditionalCoverage: 0, statementCoverage: 0]
                 ])
                 echo "Checkstyle..."
-                step([
-                    $class: 'CloverPublisher',
-                    cloverReportDir: 'build/logs/',
-                    cloverReportFileName: 'checkstyle.xml'
-                ])
+                recordIssues enabledForFailure: true, tool: checkStyle()
                 echo "Done..."
             }
         }
