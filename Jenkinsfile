@@ -93,7 +93,7 @@ pipeline {
                     failingTarget: [methodCoverage: 0, conditionalCoverage: 0, statementCoverage: 0]
                 ])
                 echo "Checkstyle..."
-                recordIssues enabledForFailure: true, tool: publishChecks()
+                publishChecks()
                 echo "Done..."
             }
         }
