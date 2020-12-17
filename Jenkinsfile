@@ -91,7 +91,7 @@ pipeline {
                     failingTarget: [methodCoverage: 0, conditionalCoverage: 0, statementCoverage: 0]]
                 )
                 echo "Checkstyle"
-                checkstyle canRunOnFailed: true, defaultEncoding: '', healthy: '', pattern: 'build/logs/checkstyle.xml', unHealthy: '' || exit 0
+                checkstyle canRunOnFailed: true, defaultEncoding: '', healthy: '', pattern: 'build/logs/checkstyle.xml', unHealthy: ''
                 echo "DONE......"
             }
         }
