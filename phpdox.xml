@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <phpdox xmlns="http://xml.phpdox.net/config">
-    <project name="demo-ci-php" source="${basedir}/src" workdir="${basedir}/build/logs">
-        <collector backend="parser" />
+    <project name="demo-ci-php" source="${basedir}/src" workdir="${basedir}/api/xml">
+        <collector backend="parser"/>
         <generator output="${basedir}/build/api">
+            <enrich base="file/dir/of/logs">
+                <source type="phploc">
+                    <file name="build/logs/phploc.xml"/>
+                </source>
+            </enrich>
             <build engine="html" output="html"/>
         </generator>
     </project>
