@@ -5,15 +5,15 @@ pipeline {
         stage('Prepare') {
             steps {
                 sh 'composer update'
+                sh 'rm -rf api/xml'
+                sh 'rm -rf build/phpdox'
                 sh 'rm -rf build/coverage'
                 sh 'rm -rf build/logs'
                 sh 'rm -rf build/pdepend'
-                sh 'rm -rf build/phpdox'
                 sh 'mkdir -p build/'
                 sh 'mkdir build/coverage'
                 sh 'mkdir build/logs'
                 sh 'mkdir build/pdepend'
-                sh 'mkdir build/phpdox'
             }
         }
 
