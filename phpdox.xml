@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <phpdox xmlns="http://xml.phpdox.net/config" silen="false">
     <project name="demo-ci-php" source="${basedir}/src" workdir="${basedir}build/api/xml">
-        <collector publiconly="false" backend="parser" encoding="auto">
+        <collector publiconly="false" backend="parser">
             <include mask="*.php" />
             <exclude mask="" />
             <inheritance resolve="true">
