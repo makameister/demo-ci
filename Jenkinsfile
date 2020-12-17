@@ -5,8 +5,7 @@ pipeline {
         stage('Prepare') {
             steps {
                 sh 'composer update'
-                sh 'rm -rf api/xml'
-                sh 'rm -rf build/phpdox'
+                sh 'rm -rf api'
                 sh 'rm -rf build/coverage'
                 sh 'rm -rf build/logs'
                 sh 'rm -rf build/pdepend'

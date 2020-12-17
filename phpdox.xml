@@ -1,9 +1,35 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<phpdox xmlns="http://xml.phpdox.net/config">
-    <project name="demo-ci-php" source="${basedir}/build/logs" workdir="${basedir}build/api/xml">
-        <collector backend="parser"/>
+<phpdox xmlns="http://xml.phpdox.net/config" silen="false">
+    <project name="demo-ci-php" source="${basedir}/src" workdir="${basedir}build/api/xml">
+        <collector publiconly="false" backend="parser" encoding="auto">
+            <include mask="*.php" />
+            <exclude mask="" />
+            <inheritance resolve="true">
+            </inheritance>
+        </collector>
         <generator output="${basedir}/build/api">
-            <build engine="html" output="html"/>
+            <enrich base="${basedir}/build">
+                <!-- PhpLoc -->
+                <source type="phploc">
+                    <file name="logs/phploc.xml" />
+                </source>
+                <!-- PHP Code Sniffer findings -->
+                <source type="phpcs">
+                    <file name="logs/checkstyle.xml" />
+                </source>
+                <!-- PHPMessDetector -->
+                <source type="pmd">
+                    <file name="pmd.xml" />
+                </source>
+                <!-- PHPUnit Coverage XML -->
+                <source type="phpunit">
+                    <coverage path="coverage" />
+                </source>
+            </enrich>
+            <build engine="html" enabled="true" output="html">
+                <!-- <template dir="${phpDox.home}/templates/html" /> -->
+                <!-- <file extension="xhtml" /> -->
+            </build>
         </generator>
     </project>
 </phpdox>
