@@ -36,7 +36,6 @@ pipeline {
         stage('Checkstyle') {
             steps {
                 sh 'vendor/bin/phpcs --report=xml --report-file=build/logs/checkstyle.xml --standard=PSR2 --extensions=php src/ || exit 0'
-                sh 'php /composer/vendor/phpcheckstyle/phpcheckstyle/run.php --src=src --format=html --outdir=build/logs/checkstyle.html || exit 0'
             }
         }
 
@@ -72,7 +71,7 @@ pipeline {
         stage('Mess detection') {
             steps {
                 sh 'vendor/bin/phpmd . xml build/phpmd.xml --reportfile build/logs/pmd.xml --exclude vendor/ || exit 0'
-                /* pmd canRunOnFailed: true, pattern: 'build/logs/pmd.xml' */
+                pmd canRunOnFailed: true, pattern: 'build/logs/pmd.xml'
             }
         }
 
@@ -95,6 +94,16 @@ pipeline {
                     unhealthyTarget: [methodCoverage: 50, conditionalCoverage: 50, statementCoverage: 50],
                     failingTarget: [methodCoverage: 0, conditionalCoverage: 0, statementCoverage: 0]
                 ])
+                /*
+                publishHTML(target: [
+                    allowMissing: false,
+                    alwaysLinkToLastBuild: false,
+                    keepAll: true,
+                    reportDir: 'build/coverage/coverage.html/',
+                    reportFiles: 'index.html',
+                    reportName: 'Code coverage'
+                ])
+                */
                 echo "Done..."
             }
         }
