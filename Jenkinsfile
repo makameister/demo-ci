@@ -33,7 +33,7 @@ pipeline {
 
         stage('Checkstyle') {
             steps {
-                sh 'vendor/bin/phpcs --report=checkstyle --report-file=build/logs/checkstyle.xml --standard=PSR2 --extensions=php src/ || exit 0'
+                sh 'vendor/bin/phpcs --report=junit --report-file=build/logs/checkstyle.xml --standard=PSR2 --extensions=php src/ || exit 0'
             }
         }
 
@@ -81,7 +81,7 @@ pipeline {
 
         stage ('Publish Analysis Reports') {
             steps {
-                echo "Code coverage clover......"
+                echo "Code coverage clover..."
                 step([
                     $class: 'CloverPublisher',
                     cloverReportDir: 'build/coverage/',
@@ -90,13 +90,13 @@ pipeline {
                     unhealthyTarget: [methodCoverage: 50, conditionalCoverage: 50, statementCoverage: 50],
                     failingTarget: [methodCoverage: 0, conditionalCoverage: 0, statementCoverage: 0]
                 ])
-                echo "Checkstyle"
-                    step([
-                        $class: 'CloverPublisher',
-                        cloverReportDir: 'build/logs/',
-                        cloverReportFileName: 'checkstyle.xml'
+                echo "Checkstyle..."
+                step([
+                    $class: 'CloverPublisher',
+                    cloverReportDir: 'build/logs/',
+                    cloverReportFileName: 'checkstyle.xml'
                 ])
-                echo "DONE......"
+                echo "Done..."
             }
         }
 
