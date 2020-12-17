@@ -20,16 +20,6 @@ pipeline {
         stage('Test'){
             steps {
                 sh 'vendor/bin/phpunit -c phpunit.xml.dist || exit 0'
-                /*
-                publishHTML(target: [
-                        allowMissing: false,
-                        alwaysLinkToLastBuild: false,
-                        keepAll: true,
-                        reportDir: 'build/coverage/coverage.html/',
-                        reportFiles: 'index.html',
-                        reportName: 'Code coverage'
-                      ])
-              */
             }
         }
 
@@ -71,7 +61,8 @@ pipeline {
         stage('Mess detection') {
             steps {
                 sh 'vendor/bin/phpmd . xml build/phpmd.xml --reportfile build/logs/pmd.xml --exclude vendor/ || exit 0'
-                pmd canRunOnFailed: true, pattern: 'build/logs/pmd.xml'
+                /* Rules set */
+                /* pmd canRunOnFailed: true, pattern: 'build/logs/pmd.xml' */
             }
         }
 
@@ -81,7 +72,7 @@ pipeline {
             }
         }
 
-        /* stage('Generate documentation') { steps { sh 'vendor/bin/phpdox -f build/phpdox.xml' } } */
+        stage('Generate documentation') { steps { sh 'vendor/bin/phpdox -f phpdox.xml' } }
 
         stage ('Publish Analysis Reports') {
             steps {
