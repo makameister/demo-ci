@@ -14,7 +14,22 @@
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
-    "require": {},
+    "extra": {
+        "nexus-push": {
+            "url": "http://localhost:8082/repository/composer",
+            "username": "jenkins",
+            "password": "jenkins",
+            "ignore-by-git-attributes": true,
+            "ignore": [
+                "test/"
+            ]
+        }
+    },
+    "require": {
+        "guzzlehttp/guzzle": "^7.2",
+        "guzzlehttp/psr7": "^1.7",
+        "elendev/nexus-composer-push": "^0.4.1"
+    },
     "require-dev": {
         "filp/whoops": "^2.7",
         "phpunit/phpunit": "^9.1",
