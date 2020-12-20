@@ -109,7 +109,7 @@ pipeline {
                     composer update --no-dev
                     cd ..
                     tar -zcvf release.tar release/
-                    curl -v -F r=demo-ci-php-2 -F g=com.acme -F a=widget -F v=1.0 -F p=tar  -F file=@./release.tar -u jenkins:jenkins http://nexus:8081/repository/composer/
+                    curl --upload-file build/release.tar -u jenkins:jenkins -v jenkins:jenkins http://nexus:8081/repository/composer/demo-ci-php-2
                 '''
 
                 /*
