@@ -101,6 +101,15 @@ pipeline {
 
         stage('Push to Nexus') {
             steps {
+                sh '''
+                    cp -r src/ build/release/src
+                    cp composer.json build/release
+                    cd build/release
+                    composer install --no-dev
+                    composer update --no-dev
+                    cd ..
+                    tar -zcvf release.tar release/
+                '''
                 nexusArtifactUploader(
                     nexusVersion: 'nexus3',
                     protocol: 'http',
