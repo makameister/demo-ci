@@ -5,6 +5,7 @@ pipeline {
         stage('Prepare') {
             steps {
                 sh 'composer update'
+                sh 'rm -rf build/app'
                 sh 'rm -rf build/coverage'
                 sh 'rm -rf build/logs'
                 sh 'rm -rf build/pdepend'
@@ -12,6 +13,7 @@ pipeline {
                 sh 'mkdir build/coverage'
                 sh 'mkdir build/logs'
                 sh 'mkdir build/pdepend'
+                sh 'mkdir build/app'
             }
         }
 
@@ -72,7 +74,7 @@ pipeline {
 
         stage('Generate documentation') { steps { sh 'phpdox -f phpdox.xml' } }
 
-        stage ('Publish Analysis Reports') {
+        stage('Publish Analysis Reports') {
             steps {
                 echo "Code coverage clover..."
                 step([
@@ -93,7 +95,28 @@ pipeline {
                     reportName: 'Code coverage'
                 ])
                 */
-                echo "Done..."
+            }
+        }
+
+        stage('Push to Nexus') {
+            steps {
+                sh '''
+                    cp src/ build/release/src
+                    cp composer.json build/release
+                    cd build/release
+                    composer update --no-dev
+                    cd ..
+                    tar -zcvf release.tar build/release
+                    curl -v \
+                       -F r=release \
+                       -F g=com.acme \
+                       -F a=widget \
+                       -F v=1.0 \
+                       -F p=tar.gz \
+                       -F file=build/release.tar.gz
+                    -u jenkins:jenkins \
+                    http://nexus:8081/nexus/service/\local/repositories/php/content`echo release.tar.gz
+                '''
             }
         }
 
