@@ -104,15 +104,15 @@ pipeline {
                 nexusArtifactUploader(
                     nexusVersion: 'nexus3',
                     protocol: 'http',
-                    nexusUrl: 'http://nexus:8081',
+                    nexusUrl: 'nexus:8081',
                     groupId: 'com.example',
                     version: '1.0',
                     repository: 'demo-ci-php-2',
-                    credentialsId: 'jenkins:jenkins',
+                    credentialsId: 'JENKINS_NEXUS_USER',
                     artifacts: [
                         [artifactId: 'demo-ci-php-2',
                          classifier: '',
-                         file: 'release/release.tar',
+                         file: 'build/release.tar',
                          type: 'tar']
                     ]
                 )
