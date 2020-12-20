@@ -101,16 +101,23 @@ pipeline {
 
         stage('Push to Nexus') {
             steps {
-                sh '''
-                    cp -r src/ build/release/src
-                    cp composer.json build/release
-                    cd build/release
-                    composer install --no-dev
-                    composer update --no-dev
-                    cd ..
-                    tar -zcvf release.tar release/
-                    curl -v -F r=release -F g=com.acme -F a=widget -F v=1.0 -F p=tar  -F file=@./release.tar -u jenkins:jenkins http://nexus:8081/repository/demo-ci-php-2/
-                '''
+                step {
+                    nexusArtifactUploader(
+                        nexusVersion: 'nexus3',
+                        protocol: 'http',
+                        nexusUrl: 'http://nexus:8081',
+                        groupId: 'com.example',
+                        version: 1.0,
+                        repository: 'demo-ci-php-2',
+                        credentialsId: 'jenkins:jenkins',
+                        artifacts: [
+                            [artifactId: 'demo-ci-php-2',
+                             classifier: '',
+                             file: 'release/release.tar',
+                             type: 'tar']
+                        ]
+                     )
+                }
             }
         }
     }
