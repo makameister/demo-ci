@@ -6,6 +6,7 @@ pipeline {
             steps {
                 sh 'composer update'
                 sh 'rm -rf build/release'
+                sh 'rm -rf build/release.tar'
                 sh 'rm -rf build/coverage'
                 sh 'rm -rf build/logs'
                 sh 'rm -rf build/pdepend'
@@ -107,8 +108,7 @@ pipeline {
                     composer update --no-dev
                     cd ..
                     tar -zcvf release.tar release
-                    curl -v -F r=release -F g=com.acme -F a=widget -F v=1.0 -F p=tar.gz  -F file=@./release.tar.gz -u jenkins:jenkins
-                    http://nexus:8081/nexus/service/local/repositories/php/content
+                    curl -v -F r=release -F g=com.acme -F a=widget -F v=1.0 -F p=tar.gz  -F file=@./release.tar.gz -u jenkins:jenkins http://nexus:8081/nexus/service/local/repositories/php/content
                 '''
             }
         }
