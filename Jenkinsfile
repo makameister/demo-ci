@@ -108,14 +108,9 @@ pipeline {
                     composer install --no-dev
                     composer update --no-dev
                     cd ..
-                    zip release.tar.gz release/
-                    curl -v -u jenkins:jenkins --upload-file release.zip http://nexus:8081/repository/php/packages/upload/maka/demo-ci/0.0.7
+                    tar -zcvf release.tar.gz release/
+                    curl -v -u jenkins:jenkins --upload-file release.tar.gz http://nexus:8081/repository/php/packages/upload/maka/demo-ci/${currentBuild.number}
                 '''
-
-                /*
-                tar -zcvf release.tar.gz -C release .
-                curl -v -u jenkins:jenkins --upload-file release.tar.gz http://nexus:8081/repository/php/packages/upload/maka/demo-ci/0.0.6
-                */
             }
         }
     }
