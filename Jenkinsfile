@@ -109,8 +109,8 @@ pipeline {
                     composer update --no-dev
                     cd ..
                     tar -zcvf release.tar.gz release/
-                    curl -v -u jenkins:jenkins --upload-file release.tar.gz http://nexus:8081/repository/php/packages/upload/maka/demo-ci/${currentBuild.number}
                 '''
+                sh "curl -v -u jenkins:jenkins --upload-file release.tar.gz http://nexus:8081/repository/php/packages/upload/maka/demo-ci/${currentBuild.number}"
             }
         }
     }
