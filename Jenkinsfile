@@ -108,34 +108,14 @@ pipeline {
                     composer install --no-dev
                     composer update --no-dev
                     cd ..
-                    tar -zcvf release.tar.gz -C release .
-                    curl -v -u jenkins:jenkins --upload-file release.tar.gz http://nexus:8081/repository/php/packages/upload/maka/demo-ci/0.0.6
+                    zip release.tar.gz release/
+                    curl -v -u jenkins:jenkins --upload-file release.zip http://nexus:8081/repository/php/packages/upload/maka/demo-ci/0.0.7
                 '''
 
                 /*
-                curl -v -F p=tar -F file=@./release.tar.gz -u jenkins:jenkins http://nexus:8081/repository/php/packages/upload/maka/demo-ci/0.0.5
-                curl -v -X PUT -H "Content-Type: application/zip" --upload-file release.tar.gz -u "jenkins:jenkins" http://nexus:8081/repository/php/packages/upload/maka/demo-ci/0.0.5
-                curl -v --upload-file release.tar -u 'jenkins:jenkins' http://nexus:8081/repository/composer/packages/upload/vendor/project/version
-                curl -v -F r=demo-ci-php-2 -F g=com.acme -F a=widget -F v=1.0 -F p=tar  -F file=@./release.tar -u jenkins:jenkins http://nexus:8081/repository/composer/
+                tar -zcvf release.tar.gz -C release .
+                curl -v -u jenkins:jenkins --upload-file release.tar.gz http://nexus:8081/repository/php/packages/upload/maka/demo-ci/0.0.6
                 */
-                /*
-                nexusArtifactUploader(
-                    nexusVersion: 'nexus3',
-                    protocol: 'http',
-                    nexusUrl: 'nexus:8081',
-                    groupId: 'com.example',
-                    version: '1.0',
-                    repository: 'demo-ci-php-2',
-                    credentialsId: 'JENKINS_NEXUS_USER',
-                    artifacts: [
-                        [artifactId: 'demo-ci-php-2',
-                         classifier: '',
-                         file: 'build/release.tar',
-                         type: 'tar']
-                    ]
-                )
-                */
-
             }
         }
     }
