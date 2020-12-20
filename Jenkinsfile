@@ -5,6 +5,7 @@ pipeline {
         stage('Prepare') {
             steps {
                 sh 'composer update'
+                sh 'rm -rf build/release'
                 sh 'rm -rf build/app'
                 sh 'rm -rf build/coverage'
                 sh 'rm -rf build/logs'
@@ -13,7 +14,7 @@ pipeline {
                 sh 'mkdir build/coverage'
                 sh 'mkdir build/logs'
                 sh 'mkdir build/pdepend'
-                sh 'mkdir build/app'
+                sh 'mkdir build/release'
             }
         }
 
