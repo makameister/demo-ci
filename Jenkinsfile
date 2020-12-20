@@ -101,23 +101,21 @@ pipeline {
 
         stage('Push to Nexus') {
             steps {
-                step {
-                    nexusArtifactUploader(
-                        nexusVersion: 'nexus3',
-                        protocol: 'http',
-                        nexusUrl: 'http://nexus:8081',
-                        groupId: 'com.example',
-                        version: 1.0,
-                        repository: 'demo-ci-php-2',
-                        credentialsId: 'jenkins:jenkins',
-                        artifacts: [
-                            [artifactId: 'demo-ci-php-2',
-                             classifier: '',
-                             file: 'release/release.tar',
-                             type: 'tar']
-                        ]
-                     )
-                }
+                nexusArtifactUploader(
+                    nexusVersion: 'nexus3',
+                    protocol: 'http',
+                    nexusUrl: 'http://nexus:8081',
+                    groupId: 'com.example',
+                    version: 1.0,
+                    repository: 'demo-ci-php-2',
+                    credentialsId: 'jenkins:jenkins',
+                    artifacts: [
+                        [artifactId: 'demo-ci-php-2',
+                         classifier: '',
+                         file: 'release/release.tar',
+                         type: 'tar']
+                    ]
+                )
             }
         }
     }
