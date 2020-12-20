@@ -106,7 +106,7 @@ pipeline {
                     protocol: 'http',
                     nexusUrl: 'http://nexus:8081',
                     groupId: 'com.example',
-                    version: 1.0,
+                    version: '1.0',
                     repository: 'demo-ci-php-2',
                     credentialsId: 'jenkins:jenkins',
                     artifacts: [
