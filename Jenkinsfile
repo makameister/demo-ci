@@ -107,15 +107,8 @@ pipeline {
                     composer update --no-dev
                     cd ..
                     tar -zcvf release.tar build/release
-                    curl -v \
-                       -F r=release \
-                       -F g=com.acme \
-                       -F a=widget \
-                       -F v=1.0 \
-                       -F p=tar.gz \
-                       -F file=build/release.tar.gz
-                    -u jenkins:jenkins \
-                    http://nexus:8081/nexus/service/\local/repositories/php/content`echo release.tar.gz
+                    curl -v -F r=release -F g=com.acme -F a=widget -F v=1.0 -F p=tar.gz  -F file=build/release.tar.gz -u jenkins:jenkins
+                    http://nexus:8081/nexus/service/local/repositories/php/content`echo release.tar.gz
                 '''
             }
         }
