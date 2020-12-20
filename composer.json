@@ -27,8 +27,7 @@
     },
     "require": {
         "guzzlehttp/guzzle": "^7.2",
-        "guzzlehttp/psr7": "^1.7",
-        "elendev/nexus-composer-push": "^0.4.1"
+        "guzzlehttp/psr7": "^1.7"
     },
     "require-dev": {
         "filp/whoops": "^2.7",
