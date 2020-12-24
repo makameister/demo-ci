@@ -110,7 +110,7 @@ pipeline {
                     cd ..
                     tar -zcvf release.tar.gz release/
                 '''
-                sh "curl -v -u jenkins:jenkins --upload-file build/release.tar.gz http://nexus:8081/repository/php-dev/maka/demo-ci/0.0.${currentBuild.number}"
+                sh "curl -v -u jenkins:jenkins --upload-file build/release.tar.gz http://nexus:8081/repository/php-dev/packages/upload/maka/demo-ci/0.0.${currentBuild.number}"
             }
         }
     }

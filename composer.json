@@ -17,7 +17,7 @@
     "extra": {
         "nexus-push": [{
             "name": "prod",
-            "url": "http://localhost:8082/repository/php-dev",
+            "url": "http://localhost:8082/repository/php-prod",
             "username": "jenkins",
             "password": "jenkins",
             "ignore-by-git-attributes": true,
@@ -53,6 +53,7 @@
         "phploc/phploc": "^7.0",
         "sebastian/phpcpd": "^6.0",
         "pdepend/pdepend": "^2.8",
-        "phpmd/phpmd": "^2.9"
+        "phpmd/phpmd": "^2.9",
+        "elendev/nexus-composer-push": "0.4.1"
     }
 }
