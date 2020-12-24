@@ -1,9 +1,21 @@
 pipeline {
     agent any
 
+    environment {
+        JENKINS_HOME='/var/lib/jenkins'
+        GIT_URL="http://gogs:3000/"
+        BUILD_VERSION = ${currentBuild.number}
+        COMMIT_NUMBER = GIT_COMMIT
+        BRANCH_MASTER=master
+        BRANCH_DEV=dev
+        NEXUS_USER = "jenkins"
+        NEXUS_PASS = "jenkins"
+    }
+
     stages {
         stage('Prepare') {
             steps {
+                sh 'printenv'
                 sh 'composer update'
                 sh 'rm -rf build/release'
                 sh 'rm -rf build/release.tar'
@@ -77,7 +89,6 @@ pipeline {
 
         stage('Publish Analysis Reports') {
             steps {
-                echo "Code coverage clover..."
                 step([
                     $class: 'CloverPublisher',
                     cloverReportDir: 'build/coverage/',
@@ -86,31 +97,28 @@ pipeline {
                     unhealthyTarget: [methodCoverage: 50, conditionalCoverage: 50, statementCoverage: 50],
                     failingTarget: [methodCoverage: 0, conditionalCoverage: 0, statementCoverage: 0]
                 ])
-                /*
-                publishHTML(target: [
-                    allowMissing: false,
-                    alwaysLinkToLastBuild: false,
-                    keepAll: true,
-                    reportDir: 'build/coverage/coverage.html/',
-                    reportFiles: 'index.html',
-                    reportName: 'Code coverage'
-                ])
-                */
             }
         }
 
         stage('Push to Nexus') {
-            steps {
-                sh '''
-                    cp -r src/ build/release/src
-                    cp composer.json build/release
-                    cd build/release
-                    composer install --no-dev
-                    composer update --no-dev
-                    cd ..
-                    tar -zcvf release.tar.gz release/
-                '''
-                sh "curl -v -u jenkins:jenkins --upload-file build/release.tar.gz http://nexus:8081/repository/php-dev/packages/upload/maka/demo-ci/0.0.${currentBuild.number}"
+            when {
+                branch("master")
+                echo "master..."
+                sh 'composer -vvv nexus-push --repository prod --username ${NEXUS_USER} --password {$NEXUS_PASS} ${BUILD_VERSION}'
+            }
+            when {
+                branch("dev")
+                echo "dev..."
+                sh 'composer -vvv nexus-push --repository dev --username ${NEXUS_USER} --password {$NEXUS_PASS} ${BUILD_VERSION}'
+            }
+        }
+
+        stage('Notify') {
+            success {
+                echo "I'm successful: ${currentBuild.result} <> ${currentBuild.currentResult}"
+            }
+            failure {
+                echo "I failed: ${currentBuild.result} <> ${currentBuild.currentResult}"
             }
         }
     }
