@@ -16,7 +16,7 @@
     "prefer-stable": true,
     "extra": {
         "nexus-push": {
-            "url": "http://localhost:8082/repository/composer",
+            "url": "http://localhost:8082/repository/php",
             "username": "jenkins",
             "password": "jenkins",
             "ignore-by-git-attributes": true,
