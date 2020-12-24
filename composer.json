@@ -15,19 +15,30 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "extra": {
-        "nexus-push": {
-            "url": "http://localhost:8082/repository/php",
+        "nexus-push": [{
+            "name": "prod",
+            "url": "http://localhost:8082/repository/php-dev",
             "username": "jenkins",
             "password": "jenkins",
             "ignore-by-git-attributes": true,
             "ignore": [
                 "test/"
             ]
-        }
+        }, {
+            "name": "dev",
+            "url": "http://localhost:8082/repository/php-dev",
+            "username": "jenkins",
+            "password": "jenkins",
+            "ignore-by-git-attributes": true,
+            "ignore": [
+                "test/"
+            ]
+        }]
     },
     "require": {
         "guzzlehttp/guzzle": "^7.2",
-        "guzzlehttp/psr7": "^1.7"
+        "guzzlehttp/psr7": "^1.7",
+        "altorouter/altorouter": "2.0.1"
     },
     "require-dev": {
         "filp/whoops": "^2.7",
