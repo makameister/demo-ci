@@ -124,7 +124,7 @@ pipeline {
             echo "I failed: ${currentBuild.result} <> ${currentBuild.currentResult}"
         }
         always {
-
+            echo "Always"
         }
     }
 }
