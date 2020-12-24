@@ -5,9 +5,9 @@ pipeline {
         JENKINS_HOME='/var/lib/jenkins'
         GIT_URL="http://gogs:3000/"
         BUILD_VERSION = ${currentBuild.number}
-        COMMIT_NUMBER = GIT_COMMIT
+        /* COMMIT_NUMBER = GIT_COMMIT
         BRANCH_MASTER=master
-        BRANCH_DEV=dev
+        BRANCH_DEV=dev */
         NEXUS_USER = "jenkins"
         NEXUS_PASS = "jenkins"
     }
