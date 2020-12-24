@@ -106,7 +106,7 @@ pipeline {
                     if (env.GIT_BRANCH.contains('master')) {
                         echo "Branch master detected..."
                         echo "composer -vvv nexus-push --url http://nexus:8081/repository/php-dev --username ${NEXUS_USER} --password ${$NEXUS_PASS} ${BUILD_VERSION}"
-                        sh "composer -vvv nexus-push --url http://nexus:8081/repository/php-dev --username ${NEXUS_USER} --password ${$NEXUS_PASS} ${BUILD_VERSION}"
+                        sh "composer -vvv nexus-push --url http://nexus:8081/repository/php-dev --username ${NEXUS_USER} --password ${NEXUS_PASS} ${BUILD_VERSION}"
                     } else {
                         echo "Branch others detected..."
                     }
