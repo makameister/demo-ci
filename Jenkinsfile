@@ -100,22 +100,16 @@ pipeline {
             }
         }
 
-        stage('Push to Nexus : Master') {
+        stage('Push to Nexus') {
             steps {
-                when {
-                    branch("master")
+                script {
+                    if (env.GIT_BRANCH.contains('master') {
+                        echo "Branch master detected..."
+                        sh 'composer -vvv nexus-push --repository prod --username ${NEXUS_USER} --password {$NEXUS_PASS} ${BUILD_VERSION}'
+                    } else {
+                        echo "Branch others detected..."
+                    }
                 }
-                echo "master..."
-                sh 'composer -vvv nexus-push --repository prod --username ${NEXUS_USER} --password {$NEXUS_PASS} ${BUILD_VERSION}'
-            }
-        }
-        stage('Push to Nexus : Dev') {
-            steps {
-                when {
-                    branch("dev")
-                }
-                echo "dev..."
-                sh 'composer -vvv nexus-push --repository dev --username ${NEXUS_USER} --password {$NEXUS_PASS} ${BUILD_VERSION}'
             }
         }
     }

@@ -17,7 +17,7 @@
     "extra": {
         "nexus-push": [{
             "name": "prod",
-            "url": "http://localhost:8082/repository/php-prod",
+            "url": "http://localhost:8082/repository/php-dev",
             "username": "jenkins",
             "password": "jenkins",
             "ignore-by-git-attributes": true,
