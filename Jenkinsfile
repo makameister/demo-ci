@@ -100,7 +100,7 @@ pipeline {
             }
         }
 
-        stage('Push to Nexus') {
+        stage('Push to Nexus : Master') {
             steps {
                 when {
                     branch("master")
@@ -108,6 +108,8 @@ pipeline {
                 echo "master..."
                 sh 'composer -vvv nexus-push --repository prod --username ${NEXUS_USER} --password {$NEXUS_PASS} ${BUILD_VERSION}'
             }
+        }
+        stage('Push to Nexus : Dev') {
             steps {
                 when {
                     branch("dev")
