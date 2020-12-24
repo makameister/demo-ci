@@ -15,25 +15,6 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "extra": {
-        "nexus-push": [{
-            "name": "prod",
-            "url": "http://nexus:8081/repository/php-dev",
-            "username": "jenkins",
-            "password": "jenkins",
-            "ignore-by-git-attributes": true,
-            "ignore": [
-                "test/"
-            ]
-        }, {
-            "name": "dev",
-            "url": "http://nexus:8081/repository/php-dev",
-            "username": "jenkins",
-            "password": "jenkins",
-            "ignore-by-git-attributes": true,
-            "ignore": [
-                "test/"
-            ]
-        }]
     },
     "require": {
         "guzzlehttp/guzzle": "^7.2",
