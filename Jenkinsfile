@@ -4,7 +4,7 @@ pipeline {
     environment {
         JENKINS_HOME='/var/lib/jenkins'
         GIT_URL="http://gogs:3000/"
-        BUILD_VERSION = ${currentBuild.number}
+        BUILD_VERSION = "${currentBuild.number}"
         /* COMMIT_NUMBER = GIT_COMMIT
         BRANCH_MASTER=master
         BRANCH_DEV=dev */
@@ -101,25 +101,29 @@ pipeline {
         }
 
         stage('Push to Nexus') {
-            when {
-                branch("master")
+            steps {
+                when {
+                    branch("master")
+                }
                 echo "master..."
                 sh 'composer -vvv nexus-push --repository prod --username ${NEXUS_USER} --password {$NEXUS_PASS} ${BUILD_VERSION}'
             }
-            when {
-                branch("dev")
+            steps {
+                when {
+                    branch("dev")
+                }
                 echo "dev..."
                 sh 'composer -vvv nexus-push --repository dev --username ${NEXUS_USER} --password {$NEXUS_PASS} ${BUILD_VERSION}'
             }
         }
+    }
 
-        stage('Notify') {
-            success {
-                echo "I'm successful: ${currentBuild.result} <> ${currentBuild.currentResult}"
-            }
-            failure {
-                echo "I failed: ${currentBuild.result} <> ${currentBuild.currentResult}"
-            }
+    post {
+        success {
+            echo "I'm successful: ${currentBuild.result} <> ${currentBuild.currentResult}"
+        }
+        failure {
+            echo "I failed: ${currentBuild.result} <> ${currentBuild.currentResult}"
         }
     }
 }
