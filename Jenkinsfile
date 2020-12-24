@@ -89,6 +89,7 @@ pipeline {
 
         stage('Publish Analysis Reports') {
             steps {
+                echo "Publish to Jenkins"
                 step([
                     $class: 'CloverPublisher',
                     cloverReportDir: 'build/coverage/',
@@ -97,6 +98,7 @@ pipeline {
                     unhealthyTarget: [methodCoverage: 50, conditionalCoverage: 50, statementCoverage: 50],
                     failingTarget: [methodCoverage: 0, conditionalCoverage: 0, statementCoverage: 0]
                 ])
+                echo "Publish to web server"
             }
         }
 
@@ -120,6 +122,9 @@ pipeline {
         }
         failure {
             echo "I failed: ${currentBuild.result} <> ${currentBuild.currentResult}"
+        }
+        always {
+
         }
     }
 }
