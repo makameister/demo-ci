@@ -103,7 +103,7 @@ pipeline {
         stage('Push to Nexus') {
             steps {
                 script {
-                    if (env.GIT_BRANCH.contains('master') {
+                    if (env.GIT_BRANCH.contains('master')) {
                         echo "Branch master detected..."
                         sh 'composer -vvv nexus-push --repository prod --username ${NEXUS_USER} --password {$NEXUS_PASS} ${BUILD_VERSION}'
                     } else {
