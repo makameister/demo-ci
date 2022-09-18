@@ -35,6 +35,8 @@
         "sebastian/phpcpd": "^6.0",
         "pdepend/pdepend": "^2.8",
         "phpmd/phpmd": "^2.9",
-        "elendev/nexus-composer-push": "0.4.1"
+        "elendev/nexus-composer-push": "0.4.1",
+        "phpstan/phpstan-phpunit": "^0.12.17",
+        "symfony/var-dumper": "^5.2"
     }
 }

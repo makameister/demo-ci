@@ -99,6 +99,7 @@ pipeline {
                     failingTarget: [methodCoverage: 0, conditionalCoverage: 0, statementCoverage: 0]
                 ])
                 echo "Publish to web server"
+                sh "ssh "
             }
         }
 
@@ -110,6 +111,7 @@ pipeline {
                         sh "composer -vvv nexus-push --url http://nexus:8081/repository/php-dev --username ${NEXUS_USER} --password ${NEXUS_PASS} ${BUILD_VERSION}"
                     } else {
                         echo "Branch others detected..."
+                        sh "composer -vvv nexus-push --url http://nexus:8081/repository/php-dev --username ${NEXUS_USER} --password ${NEXUS_PASS} ${BUILD_VERSION}"
                     }
                 }
             }
